@@ -18,7 +18,7 @@ class TopicsController extends Controller
     }
 
 	/**
-	 * 帖子首页
+	 * 话题首页
 	 * @param Request $request
 	 * @param Topic $topic
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -29,13 +29,18 @@ class TopicsController extends Controller
 		return view('topics.index', compact('topics'));
 	}
 
+	/**
+	 * 查看话题
+	 * @param Topic $topic
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
     public function show(Topic $topic)
     {
         return view('topics.show', compact('topic'));
     }
 
 	/**
-	 * 新建帖子
+	 * 新建话题
 	 * @param Topic $topic
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
@@ -45,6 +50,12 @@ class TopicsController extends Controller
 		return view('topics.create_and_edit', compact('topic', 'categories'));
 	}
 
+	/**
+	 * 保存话题
+	 * @param TopicRequest $request
+	 * @param Topic $topic
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function store(TopicRequest $request, Topic $topic)
 	{
 		$topic->fill($request->all());
@@ -54,6 +65,11 @@ class TopicsController extends Controller
 		return redirect()->route('topics.show', $topic->id)->with('message', '创建话题成功！');
 	}
 
+	/**
+	 * 编辑话题
+	 * @param Topic $topic
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function edit(Topic $topic)
 	{
         $this->authorize('update', $topic);
@@ -61,6 +77,12 @@ class TopicsController extends Controller
 		return view('topics.create_and_edit', compact('topic', 'categories'));
 	}
 
+	/**
+	 * 更新话题
+	 * @param TopicRequest $request
+	 * @param Topic $topic
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function update(TopicRequest $request, Topic $topic)
 	{
 		$this->authorize('update', $topic);
@@ -69,6 +91,11 @@ class TopicsController extends Controller
 		return redirect()->route('topics.show', $topic->id)->with('message', '修改话题成功！');
 	}
 
+	/**
+	 * 删除话题
+	 * @param Topic $topic
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function destroy(Topic $topic)
 	{
 		$this->authorize('destroy', $topic);
