@@ -1,0 +1,5 @@
+{
+    "require": {
+        "mews/purifier": "~2.0"
+    }
+}
