@@ -16,25 +16,15 @@ use Carbon\Carbon;
 
 $factory->define(App\Models\User::class, function (Faker $faker) {
     static $password;
-<<<<<<< HEAD
 	$now = Carbon::now()->toDateTimeString();
-=======
-    $now = Carbon::now()->toDateTimeString();
->>>>>>> 9224be3d6ef0cbc310ebe6f1e13dc43844f74dae
 
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
-<<<<<<< HEAD
 		'introduction' => $faker->sentence(),
 		'created_at' => $now,
 		'updated_at' => $now,
-=======
-        'introduction' => $faker->sentence(),
-        'created_at' => $now,
-        'updated_at' => $now,
->>>>>>> 9224be3d6ef0cbc310ebe6f1e13dc43844f74dae
     ];
 });

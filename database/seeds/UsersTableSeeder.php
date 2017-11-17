@@ -1,10 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-<<<<<<< HEAD
-=======
 use App\Models\User;
->>>>>>> 9224be3d6ef0cbc310ebe6f1e13dc43844f74dae
 
 class UsersTableSeeder extends Seeder
 {
@@ -15,9 +12,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-<<<<<<< HEAD
-        //
-=======
         // 获取 Faker 实例
         $faker = app(Faker\Generator::class);
 
@@ -52,6 +46,5 @@ class UsersTableSeeder extends Seeder
         $user->email = 'tyu@163.com';
         $user->avatar = 'https://fsdhubcdn.phphub.org/uploads/images/201710/14/1/ZqM7iaP4CR.png?imageView2/1/w/200/h/200';
         $user->save();
->>>>>>> 9224be3d6ef0cbc310ebe6f1e13dc43844f74dae
     }
 }
