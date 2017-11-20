@@ -22,9 +22,14 @@ class ReplyObserver
 		$topic->increment('reply_count', 1);
 
 		// 如果评论的作者不是话题的作者，才需要通知
-//		if ( ! $reply->user->isAuthorOf($topic)) {
-		if ($topic->id != Auth::id()) {
+		if ( ! $reply->user->isAuthorOf($topic)) {
+//		if ($topic->id != Auth::id()) {
 			$topic->user->notify(new TopicReplied($reply));
 		}
+	}
+
+	public function deleted(Reply $reply)
+	{
+		$reply->topic->decrement('reply_count', 1);
 	}
 }

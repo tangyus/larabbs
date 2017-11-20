@@ -54,6 +54,12 @@ class User extends Authenticatable
 		return $query->orderBy('id', 'desc');
 	}
 
+	// 判断用户权限
+	public function isAuthorOf($model)
+	{
+		return $this->id == $model->user_id;
+	}
+
 	// 清除未读消息
 	public function markAsRead()
 	{
