@@ -30,8 +30,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @guest
-                <li><a href="{{ route('login') }}">登录</a></li>
-                <li><a href="{{ route('register') }}">注册</a></li>
+                    <li><a href="{{ route('login') }}">登录</a></li>
+                    <li><a href="{{ route('register') }}">注册</a></li>
                 @else
                     <li>
                         <a href="{{ route('topics.create') }}">
@@ -56,6 +56,16 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
+
+                            @can('manage_contents')
+                                <li>
+                                    <a href="{{ url(config('administrator.uri')) }}">
+                                        <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
+                                        管理后台
+                                    </a>
+                                </li>
+                            @endcan
+
                             <li>
                                 <a href="{{ route('users.show', Auth::id()) }}">
                                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -82,7 +92,7 @@
                             </li>
                         </ul>
                     </li>
-                    @endguest
+                @endguest
             </ul>
         </div>
     </div>

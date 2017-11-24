@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Handlers\ImageUploadHandler;
 use App\Models\Category;
 use App\Models\Topic;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TopicRequest;
@@ -21,12 +22,15 @@ class TopicsController extends Controller
 	 * 话题首页
 	 * @param Request $request
 	 * @param Topic $topic
+	 * @param User $user
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	public function index(Request $request, Topic $topic)
+	public function index(Request $request, Topic $topic, User $user)
 	{
 		$topics = $topic->withOrder($request->order)->paginate();
-		return view('topics.index', compact('topics'));
+        $active_users = $user->getActiveUsers();
+
+		return view('topics.index', compact('topics', 'active_users'));
 	}
 
 	/**

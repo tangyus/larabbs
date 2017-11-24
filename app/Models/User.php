@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+	use HasRoles, Traits\ActiveUserHelper;
     use Notifiable {
 		notify as protected laravelNotify;
 	}
@@ -54,11 +56,49 @@ class User extends Authenticatable
 		return $query->orderBy('id', 'desc');
 	}
 
+	// 判断用户权限
+	public function isAuthorOf($model)
+	{
+		return $this->id == $model->user_id;
+	}
+
 	// 清除未读消息
 	public function markAsRead()
 	{
 		$this->notification_count = 0;
 		$this->save();
 		$this->unreadNotifications->markAsRead();
+	}
+
+	/**
+	 * 在后台编辑用户时，数据入库前，运用 Eloquent 修改器 对修改的密码进行处理
+	 * @param $value
+	 */
+	public function setPasswordAttribute($value)
+	{
+		// 如果值的长度等于 60，即认为是已经做过加密的情况
+		if (strlen($value) != 60) {
+
+			// 不等于 60，做密码加密处理
+			$value = bcrypt($value);
+		}
+
+		$this->attributes['password'] = $value;
+	}
+
+	/**
+	 * 在后台编辑用户时，数据入库前，运用 Eloquent 修改器 对修改的头像路径进行处理
+	 * @param $path
+	 */
+	public function setAvatarAttribute($path)
+	{
+		// 如果不是 `http` 子串开头，那就是从后台上传的，需要补全 URL
+		if ( ! starts_with($path, 'http')) {
+
+			// 拼接完整的 URL
+			$path = config('app.url') . "/uploads/images/avatars/$path";
+		}
+
+		$this->attributes['avatar'] = $path;
 	}
 }
