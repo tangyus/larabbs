@@ -9,7 +9,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-	use HasRoles, Traits\ActiveUserHelper;
+	use HasRoles, Traits\ActiveUserHelper, Traits\LastActivedAtHelper;
     use Notifiable {
 		notify as protected laravelNotify;
 	}
