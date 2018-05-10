@@ -6,13 +6,28 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
 	use HasRoles, Traits\ActiveUserHelper, Traits\LastActivedAtHelper;
     use Notifiable {
 		notify as protected laravelNotify;
 	}
+
+	// JWT 必须实现的两个方法 getJWTIdentifier getJWTCustomClaims
+	public function getJWTIdentifier()
+	{
+		// 返回 user id
+		return $this->getKey();
+	}
+
+	public function getJWTCustomClaims()
+	{
+		// 返回额外JWT 荷载中的内容
+		return [];
+	}
+
 	public function notify($instance)
 	{
 		// 如果要通知的人是当前用户，就不必通知了！
@@ -30,6 +45,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'phone', 'email', 'password', 'introduction', 'avatar',
+		'weixin_openid', 'weixin_unionid'
     ];
 
     /**
