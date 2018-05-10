@@ -21,7 +21,7 @@ class VerificationCodesController extends Controller
 
 			try {
 				$easySms->send($phone, [
-					'content' => "【Lbbs社区】您的验证码是{$code}。如非本人操作，请忽略本短信",
+					'content' => "【新鱼塘】您的验证码是{$code}。如非本人操作，请忽略本短信",
 				]);
 			} catch (ClientException $exception) {
 				$response = $exception->getResponse();

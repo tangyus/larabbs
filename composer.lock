@@ -71,16 +71,16 @@
         },
         {
             "name": "caouecs/laravel-lang",
-            "version": "3.0.47",
+            "version": "3.0.48",
             "source": {
                 "type": "git",
                 "url": "https://github.com/caouecs/Laravel-lang.git",
-                "reference": "9d618e137c4fd4a8e4556a69ab884aa0c413417c"
+                "reference": "00a265f660c80c59d1208f6b190349365d4cb053"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caouecs/Laravel-lang/zipball/9d618e137c4fd4a8e4556a69ab884aa0c413417c",
-                "reference": "9d618e137c4fd4a8e4556a69ab884aa0c413417c",
+                "url": "https://api.github.com/repos/caouecs/Laravel-lang/zipball/00a265f660c80c59d1208f6b190349365d4cb053",
+                "reference": "00a265f660c80c59d1208f6b190349365d4cb053",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -115,7 +115,7 @@
                 "laravel",
                 "lpm"
             ],
-            "time": "2018-04-24T11:50:34+00:00"
+            "time": "2018-05-08T14:16:52+00:00"
         },
         {
             "name": "ckeditor/ckeditor",
