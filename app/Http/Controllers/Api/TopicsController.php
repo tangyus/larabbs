@@ -10,11 +10,10 @@ use Illuminate\Http\Request;
 
 class TopicsController extends Controller
 {
-	/**
+	/*
 	 * 获取帖子列表
 	 * @param Request $request
 	 * @param Topic $topic
-	 * @return \Dingo\Api\Http\Response
 	 */
 	public function index(Request $request, Topic $topic)
 	{
@@ -36,11 +35,10 @@ class TopicsController extends Controller
 		return $this->response->paginator($topics, new TopicTransformer());
 	}
 
-	/**
+	/*
 	 * 获取用户下的帖子
 	 * @param User $user
 	 * @param Request $request
-	 * @return \Dingo\Api\Http\Response
 	 */
 	public function userIndex(User $user, Request $request)
 	{
@@ -49,21 +47,19 @@ class TopicsController extends Controller
 		return $this->response->paginator($topics, new TopicTransformer());
 	}
 
-	/**
+	/*
 	 * 帖子详情
 	 * @param Topic $topic
-	 * @return \Dingo\Api\Http\Response
 	 */
 	public function show(Topic $topic)
 	{
 		return $this->response->item($topic, new TopicTransformer());
 	}
 
-	/**
+	/*
 	 * 创建帖子
 	 * @param TopicRequest $request
 	 * @param Topic $topic
-	 * @return \Dingo\Api\Http\Response
 	 */
 	public function store(TopicRequest $request, Topic $topic)
 	{
@@ -74,7 +70,7 @@ class TopicsController extends Controller
 		return $this->response->item($topic, new TopicTransformer())->setStatusCode(201);
     }
 
-	/**
+	/*
 	 * 修改帖子
 	 * @param TopicRequest $request
 	 * @param Topic $topic
@@ -88,7 +84,7 @@ class TopicsController extends Controller
 		return $this->response->item($topic, new TopicTransformer());
     }
 
-	/**
+	/*
 	 * 删除帖子
 	 * @param Topic $topic
 	 */

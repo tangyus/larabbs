@@ -17,7 +17,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', [
 	'namespace' => 'App\Http\Controllers\Api',
-	'middleware' => ['serializer:array', 'bindings']
+	'middleware' => ['serializer:array', 'bindings', 'change-locale']
 ], function ($api) {
 	// 注册登录相关路由 限制频率配置 sign
 	$api->group([
@@ -72,6 +72,18 @@ $api->version('v1', [
 		// 获取用户下的帖子
 		$api->get('users/{user}/topics', 'TopicsController@userIndex')
 			->name('api.users.topics.index');
+		// 获取帖子的回复列表
+		$api->get('topics/{topic}/replies', 'RepliesController@index')
+			->name('api.topics.replies.index');
+		// 获取某个用户的所有回复
+		$api->get('users/{user}/replies', 'RepliesController@userIndex')
+			->name('api.users.replies.index');
+		// 资源推荐
+		$api->get('links', 'LinksController@index')
+			->name('api.links.index');
+		// 活跃用户
+		$api->get('actived/users', 'UsersController@activedIndex')
+			->name('api.actived.users.index');
 
 		// 需要验证 token 的接口
 		$api->group(['middleware' => 'api.auth'], function ($api) {
@@ -93,6 +105,24 @@ $api->version('v1', [
 			// 删除帖子
 			$api->delete('topics/{topic}', 'TopicsController@destroy')
 				->name('api.topics.destroy');
+			// 话题回复
+			$api->post('topics/{topic}/replies', 'RepliesController@store')
+				->name('api.topics.replies.store');
+			// 删除回复
+			$api->delete('topics/{topic}/replies/{reply}', 'RepliesController@destroy')
+				->name('api.topics.replies.destroy');
+			// 获取通知列表
+			$api->get('user/notifications', 'NotificationsController@index')
+				->name('api.user.notifications.index');
+			// 通知统计
+			$api->get('user/notifications/stats', 'NotificationsController@stats')
+				->name('api.user.notifications.stats');
+			// 标记未读通知为已读
+			$api->patch('user/read/notifications', 'NotificationsController@read')
+				->name('api.user.notifications.read');
+			// 获取当前登录用户权限
+			$api->get('user/permissions', 'PermissionsController@index')
+				->name('api.user.permissions.index');
 		});
 	});
 });

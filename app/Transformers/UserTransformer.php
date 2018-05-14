@@ -7,10 +7,10 @@ use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
 {
-	/**
+	protected $availableIncludes = ['roles'];
+
+	/*
 	 * transform 是可以复用的，所有有关用户资源都可以通过 transform 返回，一些用户敏感信息请注意做处理
-	 * @param User $user 用户模型
-	 * @return array
 	 */
 	public function transform (User $user) {
 		return [
@@ -25,5 +25,10 @@ class UserTransformer extends TransformerAbstract
 			'created_at' => $user->created_at->toDateTimeString(),
 			'updated_at' => $user->updated_at->toDateTimeString(),
 		];
+	}
+
+	public function includeRoles(User $user)
+	{
+		return $this->collection($user->roles, new RoleTransformer());
 	}
 }
