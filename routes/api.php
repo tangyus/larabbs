@@ -45,6 +45,14 @@ $api->version('v1', [
 		$api->post('authorizations', 'AuthorizationsController@store')
 			->name('api.authorizations.store');
 
+		// 小程序登录
+		$api->post('weapp/authorizations', 'AuthorizationsController@weappStore')
+			->name('api.weapp.authorizations.store');
+
+		// 小程序注册
+		$api->post('weapp/users', 'UsersController@weappStore')
+			->name('api.weapp.users.store');
+
 		// 刷新 token
 		$api->put('authorizations/current', 'AuthorizationsController@update')
 			->name('api.authorizations.update');
@@ -95,7 +103,9 @@ $api->version('v1', [
 				->name('api.images.store');
 			// 修改用户信息
 			$api->patch('user', 'UsersController@update')
-				->name('api.user.update');
+				->name('api.user.patch');
+			$api->put('user', 'UsersController@update')
+				->name('api.user.update'); // 小程序没有 patch 路由，所以这个路由为了适配小程序
 			// 发布帖子
 			$api->post('topics', 'TopicsController@store')
 				->name('api.topics.store');
