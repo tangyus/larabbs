@@ -60,6 +60,10 @@ $api->version('v1', [
 		// 删除 token
 		$api->delete('authorizations/current', 'AuthorizationsController@destroy')
 			->name('api.authorizations.destroy');
+
+		// 用户详情
+		$api->get('users/{user}', 'UsersController@show')
+			->name('api.users.show');
 	});
 
 	// 访问相关路由，限制频率配置 access
