@@ -134,6 +134,9 @@ $api->version('v1', [
 			// 标记未读通知为已读
 			$api->patch('user/read/notifications', 'NotificationsController@read')
 				->name('api.user.notifications.read');
+			// 标记未读通知为已读(微信用)
+			$api->put('user/read/notifications', 'NotificationsController@read')
+				->name('api.user.notifications.read.put');
 			// 获取当前登录用户权限
 			$api->get('user/permissions', 'PermissionsController@index')
 				->name('api.user.permissions.index');
